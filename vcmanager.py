@@ -41,7 +41,7 @@ async def start_vc(event):
             event, "**- المكالمة الصوتية بالفعل مشغلة بهذه الدردشة**"
         )
     try:
-        await Heroku(
+        await drago(
             functions.phone.CreateGroupCallRequest(
                 peer=vc_chat,
                 title="دراكو 🐉",
@@ -59,7 +59,7 @@ async def end_vc(event):
     if not gc_call:
         return
     try:
-        await Heroku(functions.phone.DiscardGroupCallRequest(call=gc_call))
+        await drago(functions.phone.DiscardGroupCallRequest(call=gc_call))
         await edit_delete(event, "**- تم بنجاح انهاء المكالمة الصوتية**")
     except ChatAdminRequiredError:
         await edit_delete(
@@ -71,7 +71,7 @@ async def end_vc(event):
 async def inv_vc(event):
     users = event.pattern_match.group(1)
     reply = await event.get_reply_message()
-    vc_chat = await Heroku.get_entity(event.chat_id)
+    vc_chat = await drago.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
     if not gc_call:
         return
@@ -97,9 +97,9 @@ async def inv_vc(event):
         return await edit_delete(event, "- تم دعوة المستخدم بالاصل", time=20)
 
 
-@Heroku.ar_cmd(pattern="معلومات_المكالمة")
+@drago.ar_cmd(pattern="معلومات_المكالمة")
 async def info_vc(event):
-    vc_chat = await Heroku.get_entity(event.chat_id)
+    vc_chat = await drago.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
     if not gc_call:
         return
