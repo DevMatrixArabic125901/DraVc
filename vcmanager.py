@@ -1,4 +1,4 @@
-from drago import Heroku
+from drago import drago
 from drago.core.managers import edit_delete, edit_or_reply
 from drago.helpers.utils import mentionuser
 from telethon import functions
@@ -8,9 +8,9 @@ from telethon.tl.types import Channel, Chat, User
 
 async def get_group_call(chat):
     if isinstance(chat, Channel):
-        result = await Heroku(functions.channels.GetFullChannelRequest(channel=chat))
+        result = await drago(functions.channels.GetFullChannelRequest(channel=chat))
     elif isinstance(chat, Chat):
-        result = await Heroku(functions.messages.GetFullChatRequest(chat_id=chat.id))
+        result = await drago(functions.messages.GetFullChatRequest(chat_id=chat.id))
     return result.full_chat.call
 
 
@@ -29,12 +29,12 @@ async def chat_vc_checker(event, chat, edits=True):
 async def parse_entity(entity):
     if entity.isnumeric():
         entity = int(entity)
-    return await Heroku.get_entity(entity)
+    return await drago.get_entity(entity)
 
 
 @drago.ar_cmd(pattern="تشغيل_المكالمة")
 async def start_vc(event):
-    vc_chat = await Heroku.get_entity(event.chat_id)
+    vc_chat = await drago.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat, False)
     if gc_call:
         return await edit_delete(
@@ -54,7 +54,7 @@ async def start_vc(event):
 
 @drago.ar_cmd(pattern="انهاء_المكالمة")
 async def end_vc(event):
-    vc_chat = await Heroku.get_entity(event.chat_id)
+    vc_chat = await drago.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
     if not gc_call:
         return
@@ -128,5 +128,5 @@ async def title_vc(event):
         return
     if not title:
         return await edit_delete("**- يجب عليك كتابة العنوان مع الامر**")
-    await Heroku(functions.phone.EditGroupCallTitleRequest(call=gc_call, title=title))
+    await drago(functions.phone.EditGroupCallTitleRequest(call=gc_call, title=title))
     await edit_delete(event, f"- تم بنجاح تغيير اسم المكالمة الى **{title}**")
