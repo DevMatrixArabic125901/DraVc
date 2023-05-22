@@ -122,7 +122,7 @@ async def info_vc(event):
 @drago.ar_cmd(pattern="تسمية_المكالمة?(.*)?")
 async def title_vc(event):
     title = event.pattern_match.group(1)
-    vc_chat = await Heroku.get_entity(event.chat_id)
+    vc_chat = await drago.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
     if not gc_call:
         return
