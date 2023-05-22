@@ -89,7 +89,7 @@ async def inv_vc(event):
         if isinstance(cc, User):
             user_list.append(cc)
     try:
-        await Heroku(
+        await drago(
             functions.phone.InviteToGroupCallRequest(call=gc_call, users=user_list)
         )
         await edit_delete(event, "**- تم بنجاح دعوة المستخدمين**")
@@ -104,7 +104,7 @@ async def info_vc(event):
     if not gc_call:
         return
     await edit_or_reply(event, "**- جار جلب معلومات المكالمة انتظر قليلا**")
-    call_details = await Heroku(
+    call_details = await drago(
         functions.phone.GetGroupCallRequest(call=gc_call, limit=1)
     )
     grp_call = "**معلومات مكالمة المجموعة**\n\n"
