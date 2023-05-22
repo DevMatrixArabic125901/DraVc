@@ -1,6 +1,6 @@
-from Heroku import Heroku
-from Heroku.core.managers import edit_delete, edit_or_reply
-from Heroku.helpers.utils import mentionuser
+from drago import Heroku
+from drago.core.managers import edit_delete, edit_or_reply
+from drago.helpers.utils import mentionuser
 from telethon import functions
 from telethon.errors import ChatAdminRequiredError, UserAlreadyInvitedError
 from telethon.tl.types import Channel, Chat, User
@@ -32,7 +32,7 @@ async def parse_entity(entity):
     return await Heroku.get_entity(entity)
 
 
-@Heroku.ar_cmd(pattern="تشغيل_المكالمة")
+@drago.ar_cmd(pattern="تشغيل_المكالمة")
 async def start_vc(event):
     vc_chat = await Heroku.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat, False)
@@ -52,7 +52,7 @@ async def start_vc(event):
         await edit_delete(event, "**- يجب ان تكون ادمن لتشغيل المكالمة هنا**", time=20)
 
 
-@Heroku.ar_cmd(pattern="انهاء_المكالمة")
+@drago.ar_cmd(pattern="انهاء_المكالمة")
 async def end_vc(event):
     vc_chat = await Heroku.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
@@ -67,7 +67,7 @@ async def end_vc(event):
         )
 
 
-@Heroku.ar_cmd(pattern="دعوة ?(.*)?")
+@drago.ar_cmd(pattern="دعوة ?(.*)?")
 async def inv_vc(event):
     users = event.pattern_match.group(1)
     reply = await event.get_reply_message()
@@ -119,7 +119,7 @@ async def info_vc(event):
     await edit_or_reply(event, grp_call)
 
 
-@Heroku.ar_cmd(pattern="تسمية_المكالمة?(.*)?")
+@drago.ar_cmd(pattern="تسمية_المكالمة?(.*)?")
 async def title_vc(event):
     title = event.pattern_match.group(1)
     vc_chat = await Heroku.get_entity(event.chat_id)
