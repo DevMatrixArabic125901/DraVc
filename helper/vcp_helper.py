@@ -65,7 +65,7 @@ class dragovc:
                 await self.client(
                     functions.phone.CreateGroupCallRequest(
                         peer=chat,
-                        title="دراكو 🐉",
+                        title="دراكو",
                     )
                 )
                 await self.join_vc(chat=chat, join_as=join_as)
