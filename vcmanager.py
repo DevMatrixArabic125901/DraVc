@@ -44,7 +44,7 @@ async def start_vc(event):
         await drago(
             functions.phone.CreateGroupCallRequest(
                 peer=vc_chat,
-                title="دراكو 🐉",
+                title="دراكو",
             )
         )
         await edit_delete(event, "**- تم بنجاح تشغيل المكالمة الصوتية**")
