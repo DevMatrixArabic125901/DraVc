@@ -5,9 +5,9 @@ import pathlib
 import time
 from datetime import datetime
 
-from HuRe.Config import Config
-from HuRe.core.managers import edit_or_reply
-from HuRe.helpers import progress
+from drago.Config import Config
+from drago.core.managers import edit_or_reply
+from drago.helpers import progress
 from telethon.tl import types
 from telethon.utils import get_extension
 
