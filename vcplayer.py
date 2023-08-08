@@ -9,7 +9,7 @@ from Heroku.core.managers import edit_delete, edit_or_reply
 
 from .helper.stream_helper import Stream
 from .helper.tg_downloader import tg_dl
-from .helper.vcp_helper import jepthonvc
+from .helper.vcp_helper import dravc
 
 plugin_category = "extra"
 
