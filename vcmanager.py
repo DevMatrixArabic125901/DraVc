@@ -1,4 +1,4 @@
-from drago import drago
+from drago import dragoiq
 from drago.core.managers import edit_delete, edit_or_reply
 from drago.helpers.utils import mentionuser
 from telethon import functions
@@ -32,7 +32,7 @@ async def parse_entity(entity):
     return await drago.get_entity(entity)
 
 
-@drago.ar_cmd(pattern="تشغيل_المكالمة")
+@dragoiq.ar_cmd(pattern="تشغيل_المكالمة")
 async def start_vc(event):
     vc_chat = await drago.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat, False)
@@ -52,7 +52,7 @@ async def start_vc(event):
         await edit_delete(event, "**- يجب ان تكون ادمن لتشغيل المكالمة هنا**", time=20)
 
 
-@drago.ar_cmd(pattern="انهاء_المكالمة")
+@dragoiq.ar_cmd(pattern="انهاء_المكالمة")
 async def end_vc(event):
     vc_chat = await drago.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
@@ -67,7 +67,7 @@ async def end_vc(event):
         )
 
 
-@drago.ar_cmd(pattern="دعوة ?(.*)?")
+@dragoiq.ar_cmd(pattern="دعوة ?(.*)?")
 async def inv_vc(event):
     users = event.pattern_match.group(1)
     reply = await event.get_reply_message()
@@ -97,7 +97,7 @@ async def inv_vc(event):
         return await edit_delete(event, "- تم دعوة المستخدم بالاصل", time=20)
 
 
-@drago.ar_cmd(pattern="معلومات_المكالمة")
+@dragoiq.ar_cmd(pattern="معلومات_المكالمة")
 async def info_vc(event):
     vc_chat = await drago.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
@@ -119,7 +119,7 @@ async def info_vc(event):
     await edit_or_reply(event, grp_call)
 
 
-@drago.ar_cmd(pattern="تسمية_المكالمة?(.*)?")
+@dragoiq.ar_cmd(pattern="تسمية_المكالمة?(.*)?")
 async def title_vc(event):
     title = event.pattern_match.group(1)
     vc_chat = await drago.get_entity(event.chat_id)
