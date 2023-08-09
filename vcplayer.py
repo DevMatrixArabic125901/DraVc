@@ -4,8 +4,8 @@ import logging
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.types import User
-from Heroku import Config, Heroku
-from Heroku.core.managers import edit_delete, edit_or_reply
+from drago import Config, dragoiq
+from drago.core.managers import edit_delete, edit_or_reply
 
 from .helper.stream_helper import Stream
 from .helper.tg_downloader import tg_dl
@@ -15,7 +15,7 @@ plugin_category = "extra"
 
 logging.getLogger("pytgcalls").setLevel(logging.ERROR)
 
-OWNER_ID = Heroku.uid
+OWNER_ID = dragoiq.uid
 
 vc_session = Config.VC_SESSION
 
@@ -24,7 +24,7 @@ if vc_session:
         StringSession(vc_session), Config.APP_ID, Config.API_HASH
     )
 else:
-    vc_client = Heroku
+    vc_client = dragoiq
 
 vc_client.__class__.__module__ = "telethon.client.telegramclient"
 vc_player = jepthonvc(vc_client)
@@ -40,7 +40,7 @@ async def handler(_, update):
 ALLOWED_USERS = set()
 
 
-@Heroku.ar_cmd(
+@dragoiq.ar_cmd(
     pattern="انضمام ?(\S+)? ?(?:-as)? ?(\S+)?",
     command=("انضمام", plugin_category),
     info={
@@ -83,7 +83,7 @@ async def joinVoicechat(event):
         )
 
     try:
-        vc_chat = await Heroku.get_entity(chat)
+        vc_chat = await dragoiq.get_entity(chat)
     except Exception as e:
         return await edit_delete(event, f'ERROR : \n{e or "UNKNOWN CHAT"}')
 
@@ -102,7 +102,7 @@ async def joinVoicechat(event):
     await edit_delete(event, out)
 
 
-@Heroku.ar_cmd(
+@dragoiq.ar_cmd(
     pattern="غادر",
     command=("غادر", plugin_category),
     info={
@@ -127,7 +127,7 @@ async def leaveVoicechat(event):
         await edit_delete(event, "** انا لست منضم الى الاتصال عزيزي ❤️**")
 
 
-@Heroku.ar_cmd(
+@dragoiq.ar_cmd(
     pattern="قائمة_التشغيل",
     command=("قائمة_التشغيل", plugin_category),
     info={
@@ -157,7 +157,7 @@ async def get_playlist(event):
         await edit_delete(event, f"**قائمة التشغيل:**\n\n{jep}\n**دراكو يتمنى لكم وقتاً ممتعاً**")
 
 
-@Heroku.ar_cmd(
+@dragoiq.ar_cmd(
     pattern="تشغيل ?(-f)? ?([\S ]*)?",
     command=("تشغيل", plugin_category),
     info={
@@ -201,7 +201,7 @@ async def play_audio(event):
         await edit_delete(event, resp, time=30)
 
 
-@Heroku.ar_cmd(
+@dragoiq.ar_cmd(
     pattern="ايقاف_مؤقت",
     command=("ايقاف_مؤقت", plugin_category),
     info={
@@ -222,7 +222,7 @@ async def pause_stream(event):
     await edit_delete(event, res, time=30)
 
 
-@Heroku.ar_cmd(
+@dragoiq.ar_cmd(
     pattern="استمرار",
     command=("استمرار", plugin_category),
     info={
@@ -243,7 +243,7 @@ async def resume_stream(event):
     await edit_delete(event, res, time=30)
 
 
-@Heroku.ar_cmd(
+@dragoiq.ar_cmd(
     pattern="تخطي",
     command=("تخطي", plugin_category),
     info={
