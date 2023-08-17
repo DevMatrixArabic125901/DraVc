@@ -8,9 +8,9 @@ from telethon.tl.types import Channel, Chat, User
 
 async def get_group_call(chat):
     if isinstance(chat, Channel):
-        result = await drago(functions.channels.GetFullChannelRequest(channel=chat))
+        result = await dragoiq(functions.channels.GetFullChannelRequest(channel=chat))
     elif isinstance(chat, Chat):
-        result = await drago(functions.messages.GetFullChatRequest(chat_id=chat.id))
+        result = await dragoiq(functions.messages.GetFullChatRequest(chat_id=chat.id))
     return result.full_chat.call
 
 
@@ -41,7 +41,7 @@ async def start_vc(event):
             event, "**- المكالمة الصوتية بالفعل مشغلة بهذه الدردشة**"
         )
     try:
-        await drago(
+        await dragoiq(
             functions.phone.CreateGroupCallRequest(
                 peer=vc_chat,
                 title="دراكو",
@@ -89,7 +89,7 @@ async def inv_vc(event):
         if isinstance(cc, User):
             user_list.append(cc)
     try:
-        await drago(
+        await dragoiq(
             functions.phone.InviteToGroupCallRequest(call=gc_call, users=user_list)
         )
         await edit_delete(event, "**- تم بنجاح دعوة المستخدمين**")
@@ -128,5 +128,5 @@ async def title_vc(event):
         return
     if not title:
         return await edit_delete("**- يجب عليك كتابة العنوان مع الامر**")
-    await drago(functions.phone.EditGroupCallTitleRequest(call=gc_call, title=title))
+    await dragoiq(functions.phone.EditGroupCallTitleRequest(call=gc_call, title=title))
     await edit_delete(event, f"- تم بنجاح تغيير اسم المكالمة الى **{title}**")
