@@ -32,7 +32,7 @@ vc_player = dravc(vc_client)
 asyncio.create_task(vc_player.start())
 
 
-@dragoiq.app.on_stream_end()
+@vc_player.app.on_stream_end()
 async def handler(_, update):
     await vc_player.handle_next(update)
 
