@@ -29,12 +29,12 @@ async def chat_vc_checker(event, chat, edits=True):
 async def parse_entity(entity):
     if entity.isnumeric():
         entity = int(entity)
-    return await drago.get_entity(entity)
+    return await dragoiq.get_entity(entity)
 
 
 @dragoiq.ar_cmd(pattern="تشغيل_المكالمة")
 async def start_vc(event):
-    vc_chat = await drago.get_entity(event.chat_id)
+    vc_chat = await dragoiq.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat, False)
     if gc_call:
         return await edit_delete(
@@ -54,7 +54,7 @@ async def start_vc(event):
 
 @dragoiq.ar_cmd(pattern="انهاء_المكالمة")
 async def end_vc(event):
-    vc_chat = await drago.get_entity(event.chat_id)
+    vc_chat = await dragoiq.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
     if not gc_call:
         return
@@ -71,7 +71,7 @@ async def end_vc(event):
 async def inv_vc(event):
     users = event.pattern_match.group(1)
     reply = await event.get_reply_message()
-    vc_chat = await drago.get_entity(event.chat_id)
+    vc_chat = await dragoiq.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
     if not gc_call:
         return
@@ -99,12 +99,12 @@ async def inv_vc(event):
 
 @dragoiq.ar_cmd(pattern="معلومات_المكالمة")
 async def info_vc(event):
-    vc_chat = await drago.get_entity(event.chat_id)
+    vc_chat = await dragoiq.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
     if not gc_call:
         return
     await edit_or_reply(event, "**- جار جلب معلومات المكالمة انتظر قليلا**")
-    call_details = await drago(
+    call_details = await dragoiq(
         functions.phone.GetGroupCallRequest(call=gc_call, limit=1)
     )
     grp_call = "**معلومات مكالمة المجموعة**\n\n"
@@ -122,7 +122,7 @@ async def info_vc(event):
 @dragoiq.ar_cmd(pattern="تسمية_المكالمة?(.*)?")
 async def title_vc(event):
     title = event.pattern_match.group(1)
-    vc_chat = await drago.get_entity(event.chat_id)
+    vc_chat = await dragoiq.get_entity(event.chat_id)
     gc_call = await chat_vc_checker(event, vc_chat)
     if not gc_call:
         return
