@@ -4,12 +4,13 @@ import logging
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.types import User
-from drago import Config, dragoiq
-from drago.core.managers import edit_delete, edit_or_reply
+from drago import dragoiq
+from ..Config import Config
+from ..core.managers import edit_delete, edit_or_reply
 
-from .helper.stream_helper import Stream
-from .helper.tg_downloader import tg_dl
-from .helper.vcp_helper import dravc
+from ..helper.stream_helper import Stream
+from ..helper.tg_downloader import tg_dl
+from ..helper.vcp_helper import dravc
 
 plugin_category = "extra"
 
@@ -119,12 +120,12 @@ async def joinVoicechat(event):
 async def leaveVoicechat(event):
     "To leave a Voice Chat."
     if vc_player.CHAT_ID:
-        await edit_or_reply(event, "** تدلل غادرت من الاتصال حبيبي ❤️ **")
+        await edit_or_reply(event, "** تدلل غادرت من الاتصال **")
         chat_name = vc_player.CHAT_NAME
         await vc_player.leave_vc()
         await edit_delete(event, f"تمت المغادرة من {chat_name}")
     else:
-        await edit_delete(event, "** انا لست منضم الى الاتصال عزيزي ❤️**")
+        await edit_delete(event, "** انا لست منضم الى الاتصال عزيزي**")
 
 
 @dragoiq.ar_cmd(
@@ -217,7 +218,7 @@ async def play_audio(event):
 )
 async def pause_stream(event):
     "To Pause a stream on Voice Chat."
-    await edit_or_reply(event, "**تم ايقاف الموسيقى مؤقتاً ⏸**")
+    await edit_or_reply(event, "**تم ايقاف الموسيقى مؤقتاً**")
     res = await vc_player.pause()
     await edit_delete(event, res, time=30)
 
@@ -238,7 +239,7 @@ async def pause_stream(event):
 )
 async def resume_stream(event):
     "To Resume a stream on Voice Chat."
-    await edit_or_reply(event, "**تم استمرار الاغنيه استمتع ▶️**")
+    await edit_or_reply(event, "**تم استمرار الاغنيه استمتع**")
     res = await vc_player.resume()
     await edit_delete(event, res, time=30)
 
@@ -259,6 +260,6 @@ async def resume_stream(event):
 )
 async def skip_stream(event):
     "To Skip currently playing stream on Voice Chat."
-    await edit_or_reply(event, "**تم تخطي الاغنية وتشغيل الاغنيه التالية 🎵**")
+    await edit_or_reply(event, "**تم تخطي الاغنية تشغيل الاغنيه التالية**")
     res = await vc_player.skip()
     await edit_delete(event, res, time=30)
