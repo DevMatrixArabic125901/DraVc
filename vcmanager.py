@@ -44,7 +44,7 @@ async def start_vc(event):
         await dragoiq(
             functions.phone.CreateGroupCallRequest(
                 peer=vc_chat,
-                title="دراكو",
+                title="𝖬𝖺𝖳𝗋𝗂x 𝖬𝗎𝗌𝗂𝖼",
             )
         )
         await edit_delete(event, "**- تم بنجاح تشغيل المكالمة الصوتية**")
@@ -59,7 +59,7 @@ async def end_vc(event):
     if not gc_call:
         return
     try:
-        await drago(functions.phone.DiscardGroupCallRequest(call=gc_call))
+        await dragoiq(functions.phone.DiscardGroupCallRequest(call=gc_call))
         await edit_delete(event, "**- تم بنجاح انهاء المكالمة الصوتية**")
     except ChatAdminRequiredError:
         await edit_delete(
