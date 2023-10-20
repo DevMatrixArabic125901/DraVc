@@ -147,12 +147,12 @@ async def get_playlist(event):
     if not playl:
         await edit_delete(event, "Playlist empty", time=10)
     else:
-        jep = ""
+        matrix = ""
         for num, item in enumerate(playl, 1):
             if item["stream"] == Stream.audio:
-                jep += f"{num}. 🔉  `{item['title']}`\n"
+                matrix += f"{num}. 🔉  `{item['title']}`\n"
             else:
-                jep += f"{num}. 📺  `{item['title']}`\n"
+                matrix += f"{num}. 📺  `{item['title']}`\n"
         await edit_delete(event, f"**قائمة التشغيل:**\n\n{jep}\n**الجوكر يتمنى لكم وقتاً ممتعاً**")
 
 def convert_youtube_link_to_name(link):
