@@ -153,7 +153,7 @@ async def get_playlist(event):
                 matrix += f"{num}. 🔉  `{item['title']}`\n"
             else:
                 matrix += f"{num}. 📺  `{item['title']}`\n"
-        await edit_delete(event, f"**قائمة التشغيل:**\n\n{jep}\n**الجوكر يتمنى لكم وقتاً ممتعاً**")
+        await edit_delete(event, f"**قائمة التشغيل:**\n\n{matrix}\n**-**")
 
 def convert_youtube_link_to_name(link):
     with youtube_dl.YoutubeDL({}) as ydl:
