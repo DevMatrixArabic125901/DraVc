@@ -118,12 +118,12 @@ async def joinVoicechat(event):
 async def leaveVoicechat(event):
     "To leave a Voice Chat."
     if vc_player.CHAT_ID:
-        await edit_or_reply(event, "** تدلل غادرت من الاتصال 🥢 **")
+        await edit_or_reply(event, "** تم مغادرة من الاتصال 🥢 **")
         chat_name = vc_player.CHAT_NAME
         await vc_player.leave_vc()
         await edit_delete(event, f"تمت المغادرة من {chat_name}")
     else:
-        await edit_delete(event, "** انا لست منضم الى الاتصال عزيزي 🥢**")
+        await edit_delete(event, "** انا لست منضم الى الاتصال 🥢**")
 
 
 @dragoiq.ar_cmd(
@@ -142,7 +142,7 @@ async def leaveVoicechat(event):
 )
 async def get_playlist(event):
     "To Get all playlist for Voice Chat."
-    await edit_or_reply(event, "**جارِ جلب قائمة التشغيل ......**")
+    await edit_or_reply(event, "**جارِ جلب قائمة التشغيل**")
     playl = vc_player.PLAYLIST
     if not playl:
         await edit_delete(event, "Playlist empty", time=10)
