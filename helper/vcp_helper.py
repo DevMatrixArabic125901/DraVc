@@ -72,7 +72,7 @@ class dravc:
             except ChatAdminRequiredError:
                 return "- عليك ان تكون مشرف في الدردشة اولا"
         except (NodeJSNotInstalled, TooOldNodeJSVersion):
-            return "- عليك تثبيت المتطلبات اولا شاهاد القناة الاساسية @jepthon"
+            return "- عليك تثبيت المتطلبات اولا شاهاد القناة الاساسية @Matrixthon"
         except AlreadyJoinedError:
             await self.app.leave_group_call(chat.id)
             await asyncio.sleep(3)
@@ -152,7 +152,7 @@ class dravc:
             if self.PLAYING:
                 await self.app.change_stream(
                     self.CHAT_ID,
-                    AudioPiped("dravc/resources/Silence01s.mp3"),
+                    AudioPiped("DraVc/resources/Silence01s.mp3"),
                 )
             self.PLAYING = False
             return "- تم تخطي التشغيل الحالي\nقائمة التشغيل فارغة"
